@@ -1,0 +1,29 @@
+# OS & editor junk
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.vscode/
+.idea/
+.local/
+
+# Node / build
+node_modules/
+package-lock.json
+
+# Tailwind build output
+app/css/tailwind.css
+app/css/tailwind.css.map
+
+# Obsidian / collections cache
+html/processed/
+html/processed/**
+
+# PHP server cache
+*.cache
+*.bak
+*.swp
+
+# Environment or temp files
+.env
+.env.*

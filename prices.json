@@ -1,0 +1,6 @@
+{
+    "Arkas":   { "label": "Arkas Collection",    "MSRP": 10 },
+    "Blu-Ray": { "label": "Blu-Rays", "MSRP": 15 },
+    "Books":   { "label": "Books",    "MSRP": 20 },
+    "CDs":     { "label": "CDs",      "MSRP": 15 }
+}

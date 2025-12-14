@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@source "./**/*.php";
+@source "./app/js/**/*.js";
+@plugin "daisyui" {
+    themes: nord --default, dark --prefersdark, nord;
+}
+@theme {
+    --font-sans: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
+    --font-heading: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+    body {
+        @apply font-sans;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading;
+    }
+
+    h1, h2, h3 {
+        font-weight: 700;
+    }
+
+    h4, h5, h6 {
+        font-weight: 500;
+    }
+}
