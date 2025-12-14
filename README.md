@@ -6,22 +6,22 @@ This project began as a small tool to turn messy Obsidian HTML exports into some
 
 ## Features
 
-- Automatic HTML cleanup  
+- Automatic HTML cleanup
   Processes raw Obsidian HTML exports and extracts only the relevant table content.
 
-- Manifest system  
+- Manifest system
   Keeps track of processed files in a JSON file and rebuilds only when source files change.
 
-- No database required  
+- No database required
   Runs entirely from flat files for simplicity and performance.
 
-- MSRP calculation  
+- MSRP calculation
   Reads category prices from a JSON configuration file (prices.json) and totals your collection value.
 
-- Responsive interface  
+- Responsive interface
   Built with Tailwind CSS and DaisyUI, styled for a clean dark mode layout.
 
-- Automatic navigation  
+- Automatic navigation
   Lists all available collection files and generates a simple navigation menu.
 
 ## Project Structure
@@ -49,14 +49,22 @@ collections/
 
 ## How It Works
 
-1. Place your exported HTML files from Obsidian in the html directory.  
+1. Place your exported HTML files from Obsidian in the html directory.
 2. When you open the site, PHP automatically:
-   - Scans all files  
-   - Extracts the table content  
-   - Saves a cleaned version in html/processed  
-   - Updates the manifest.json file  
-3. Each processed file is displayed as a simple, readable collection page.  
+   - Scans all files
+   - Extracts the table content
+   - Saves a cleaned version in html/processed
+   - Updates the manifest.json file
+3. Each processed file is displayed as a simple, readable collection page.
 4. MSRP totals are calculated from prices.json and displayed in the footer.
+
+## Exporting from Obsidian
+
+This project works best with the **Webpage HTML Export** plugin for Obsidian, created by [Nathan George](https://github.com/KosmosisDire/obsidian-webpage-export).
+Use it to export your notes, tables, or vaults as standalone HTML files.
+After export, place those `.html` files inside the `html` folder of this project.
+
+When you load the page in your browser, the system will automatically clean up the exported HTML, extract the table data, and calculate your collection totals.
 
 ## Example prices.json
 
@@ -88,9 +96,9 @@ collections/
 
 ## Requirements
 
-- PHP 8.1 or newer  
-- No database  
-- Tailwind CSS and DaisyUI included  
+- PHP 8.1 or newer
+- No database
+- Tailwind CSS and DaisyUI included
 
 ## License
 
