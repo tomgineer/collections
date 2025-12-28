@@ -17,22 +17,80 @@ function styleMarks() {
 }
 
 /**
- * Updates the text inside [data-js-count] to show
- * the number of rows inside the first <table><tbody>.
+ * Search
  */
-function updateItemCount() {
+function debounce(fn, delay = 200) {
+    let timerId;
+    return (...args) => {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => fn(...args), delay);
+    };
+}
+
+function search() {
+    const searchInput = document.querySelector('[data-js-search]');
+    if (!searchInput) return;
+
     const tbody = document.querySelector('table tbody');
-    const countEl = document.querySelector('[data-js-count]');
+    if (!tbody) return;
 
-    if (!tbody || !countEl) return;
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const cells = Array.from(tbody.querySelectorAll('td, th'));
 
-    const count = tbody.querySelectorAll('tr').length;
-    countEl.textContent = `You own ${count} Items.`;
+    const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapeHtml = (str) => str.replace(/[&<>"']/g, (ch) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+    }[ch]));
+
+    const highlightCellText = (query) => {
+        if (!query) {
+            cells.forEach(cell => {
+                if (cell.dataset.originalText !== undefined) {
+                    cell.textContent = cell.dataset.originalText;
+                }
+            });
+            return;
+        }
+
+        const re = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+        cells.forEach(cell => {
+            if (cell.dataset.originalText === undefined) {
+                cell.dataset.originalText = cell.textContent;
+            }
+            const safeText = escapeHtml(cell.dataset.originalText);
+            cell.innerHTML = safeText.replace(
+                re,
+                '<span class="bg-secondary text-white">$1</span>'
+            );
+        });
+    };
+
+    const applyFilter = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) {
+            rows.forEach(row => row.classList.remove('hidden'));
+            highlightCellText('');
+            return;
+        }
+
+        rows.forEach(row => {
+            const matches = row.textContent.toLowerCase().includes(query);
+            row.classList.toggle('hidden', !matches);
+        });
+        highlightCellText(query);
+    };
+
+    const debouncedFilter = debounce(applyFilter, 200);
+    searchInput.addEventListener('input', debouncedFilter);
 }
 
 // Run after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     styleTables();
     styleMarks();
-    updateItemCount();
+    search();
 });

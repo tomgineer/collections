@@ -20,10 +20,13 @@ $nav = navigation();
     <link href="app/css/tailwind.css?v=3.51" rel="stylesheet">
 </head>
 
-<body class="font-sans">
+<body class="font-sans min-h-screen flex flex-col overflow-y-scroll">
 
     <!-- Navigation -->
     <?php include __DIR__ . '/nav.php'; ?>
+
+    <!-- Search -->
+    <?php include __DIR__ . '/search.php'; ?>
 
     <!-- Page Content -->
     <?php include __DIR__ . '/content.php'; ?>
@@ -32,7 +35,7 @@ $nav = navigation();
     <?php include __DIR__ . '/footer.php'; ?>
 
     <!-- Scripts -->
-    <script src="app/js/scripts.js?v=2.1" defer></script>
+    <script src="app/js/scripts.js?v=2.5" defer></script>
 </body>
 
 </html>

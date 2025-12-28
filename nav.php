@@ -1,6 +1,6 @@
 <!-- Navigation -->
-<nav class="lg:sticky lg:top-0 lg:z-40 w-full bg-base-200/80 backdrop-blur border-b border-base-300 shadow-sm">
-    <div class="navbar max-w-screen-lg mx-auto px-4">
+<nav class="z-999 w-full bg-base-200/80">
+    <div class="navbar lg:max-w-4xl mx-auto px-4">
         <div class="flex-1">
             <a href="./" class="text-lg font-semibold text-base-content tracking-wide flex items-center gap-1">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-6 text-base-content/70">
@@ -18,7 +18,7 @@
                 <label tabindex="0" class="btn btn-sm btn-accent">
                     Menu
                 </label>
-                <ul tabindex="0" class="menu dropdown-content mt-3 w-56 rounded-box bg-base-200 p-2 shadow">
+                <ul tabindex="0" class="menu dropdown-content mt-3 w-56 rounded-box bg-base-200 p-2 border-2 border-accent">
                     <?php foreach ($nav['pages'] as $slug => $info): ?>
                         <?php
                         $isActive = $slug === $nav['slug']
