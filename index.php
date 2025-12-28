@@ -17,7 +17,7 @@ $nav = navigation();
 
     <!-- Fonts & Styles -->
     <link href="app/fonts/style.css" rel="stylesheet">
-    <link href="app/css/tailwind.css?v=3.0" rel="stylesheet">
+    <link href="app/css/tailwind.css?v=3.5" rel="stylesheet">
 </head>
 
 <body class="font-sans">

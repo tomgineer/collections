@@ -116,10 +116,10 @@ function loadManifest(): array {
  * per-category and grand totals based on stored metadata.
  *
  * @return array{
- *   categories: array<string, array{label: string, item_count: int, msrp_total: float}>,
+ *   categories: array<string, array{label: string, item_count: int, msrp_total: float, desc: string, desc_ext: string}>,
  *   grand_items: int,
  *   grand_msrp: float
- * } Summary of collection totals grouped by category.
+ * } Summary of collection totals grouped by category, with a total entry included.
  */
 function getCollectionTotals(): array {
     $manifest = loadManifest();
@@ -148,6 +148,8 @@ function getCollectionTotals(): array {
                 'label'      => $label,
                 'item_count' => 0,
                 'msrp_total' => 0.0,
+                'desc'       => '',
+                'desc_ext'   => '',
             ];
         }
 
@@ -158,10 +160,33 @@ function getCollectionTotals(): array {
         $grandMsrp  += $msrpTotal;
     }
 
+    foreach ($categories as $key => $category) {
+        $itemCount = (int) ($category['item_count'] ?? 0);
+        $itemsText = number_format($itemCount, 0, ',', '.');
+
+        $categories[$key]['desc'] = $itemsText . ' items';
+
+        if ($grandMsrp > 0) {
+            $percentage = ($category['msrp_total'] / $grandMsrp) * 100;
+            $percentText = number_format($percentage, 1, ',', '.');
+            $categories[$key]['desc_ext'] = $percentText . '% of total MSRP';
+        } else {
+            $categories[$key]['desc_ext'] = '0% of total MSRP';
+        }
+    }
+
     // Optional: sort categories by label for nicer output
     uasort($categories, static function (array $a, array $b): int {
         return strcasecmp($a['label'], $b['label']);
     });
+
+    $categories['total'] = [
+        'label'      => 'Total MSRP',
+        'item_count' => $grandItems,
+        'msrp_total' => $grandMsrp,
+        'desc'       => 'All categories',
+        'desc_ext'   => '',
+    ];
 
     return [
         'categories'  => $categories,
