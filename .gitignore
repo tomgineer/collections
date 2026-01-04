@@ -11,10 +11,6 @@ Thumbs.db
 node_modules/
 package-lock.json
 
-# Tailwind build output
-app/css/tailwind.css
-app/css/tailwind.css.map
-
 # Obsidian / collections cache
 html/processed/
 html/processed/**
@@ -27,3 +23,6 @@ html/processed/**
 # Environment or temp files
 .env
 .env.*
+
+# HTML Files
+html/*.html
