@@ -1,4 +1,6 @@
-# My Collections
+# Collections
+
+![Hero](hero.webp)
 
 A lightweight PHP and Tailwind (DaisyUI) web app for organizing, cleaning, and displaying your personal collections such as Blu-rays, CDs, books, or comics. No database required.
 
