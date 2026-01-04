@@ -1,33 +1,5 @@
-/**
- * Adds DaisyUI table styling to all <table> elements.
- */
-function styleTables() {
-    document.querySelectorAll('table').forEach(table => {
-        table.classList.add('table', 'table-zebra');
-    });
-}
-
-/**
- * Adds DaisyUI badge styling to all <mark> elements.
- */
-function styleMarks() {
-    document.querySelectorAll('mark').forEach(mark => {
-        mark.classList.add('badge', 'badge-dash', 'badge-accent' ,'badge-sm', 'ml-1');
-    });
-}
-
-/**
- * Search
- */
-function debounce(fn, delay = 200) {
-    let timerId;
-    return (...args) => {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => fn(...args), delay);
-    };
-}
-
-function search() {
+// Wire up table search filtering and match highlighting.
+export default function initSearch() {
     const searchInput = document.querySelector('[data-js-search]');
     if (!searchInput) return;
 
@@ -37,7 +9,9 @@ function search() {
     const rows = Array.from(tbody.querySelectorAll('tr'));
     const cells = Array.from(tbody.querySelectorAll('td, th'));
 
+    // Escape user input before building the highlight regex.
     const escapeRegExp = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Escape cell text before injecting HTML highlights.
     const escapeHtml = (str) => str.replace(/[&<>"']/g, (ch) => ({
         '&': '&amp;',
         '<': '&lt;',
@@ -46,6 +20,7 @@ function search() {
         "'": '&#39;',
     }[ch]));
 
+    // Highlight matching text across all table cells.
     const highlightCellText = (query) => {
         if (!query) {
             cells.forEach(cell => {
@@ -69,6 +44,7 @@ function search() {
         });
     };
 
+    // Filter visible rows based on the current search query.
     const applyFilter = () => {
         const query = searchInput.value.trim().toLowerCase();
         if (!query) {
@@ -84,13 +60,16 @@ function search() {
         highlightCellText(query);
     };
 
+    // Debounce input to avoid excessive DOM updates.
     const debouncedFilter = debounce(applyFilter, 200);
     searchInput.addEventListener('input', debouncedFilter);
 }
 
-// Run after DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    styleTables();
-    styleMarks();
-    search();
-});
+// Debounce function execution to limit rapid calls.
+function debounce(fn, delay = 200) {
+    let timerId;
+    return (...args) => {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => fn(...args), delay);
+    };
+}

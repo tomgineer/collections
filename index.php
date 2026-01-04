@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+include_once __DIR__ . '/app/php/version.php';
 include __DIR__ . '/app/php/engine.php';
 
 // Get all navigation data
@@ -17,7 +18,7 @@ $nav = navigation();
 
     <!-- Fonts & Styles -->
     <link href="app/fonts/style.css" rel="stylesheet">
-    <link href="app/css/tailwind.css?v=3.51" rel="stylesheet">
+    <link href="app/css/tailwind.css?v=<?=COLLECTIONS_VERSION?>" rel="stylesheet">
 </head>
 
 <body class="font-sans min-h-screen flex flex-col overflow-y-scroll">
@@ -35,7 +36,7 @@ $nav = navigation();
     <?php include __DIR__ . '/footer.php'; ?>
 
     <!-- Scripts -->
-    <script src="app/js/scripts.js?v=2.5" defer></script>
+    <script src="app/js/collections-dist.js?v=<?=COLLECTIONS_VERSION?>" defer></script>
 </body>
 
 </html>
