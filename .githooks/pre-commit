@@ -25,4 +25,4 @@ NEW="$MAJOR.$MINOR.$PATCH"
 echo "$NEW" > "$FILE"
 git add "$FILE"
 
-echo "🔖 VerdinCMS version bumped to $NEW"
+echo "🔖 Collections version bumped to $NEW"
